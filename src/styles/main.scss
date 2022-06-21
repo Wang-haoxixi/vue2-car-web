@@ -1,0 +1,152 @@
+@import "./sassConfig.scss";
+@import "./normalize.scss";
+@import "./elementUI.scss";
+
+// 获取类名为icon的i标签
+i[class^=icon] {
+    display: inline-block;
+    border-radius: 100%;
+    background-color: $color-main; // 此处必须用background-color属性，否则背景图无法显示出来
+    // background-repeat: no-repeat;
+}
+
+.icon-w-44 {
+    width: 44px;
+    height: 44px;
+}
+
+.icon-help {
+    background-image: url("@/assets/imgs/icon/icon-help.png")
+}
+
+.icon-search {
+    background-image: url("@/assets/imgs/icon/icon-search.png")
+}
+
+.icon-help {
+    background-image: url("@/assets/imgs/icon/icon-help.png")
+}
+
+.icon-location {
+    background-image: url("@/assets/imgs/icon/icon-location.png")
+}
+
+.icon-user {
+    background-image: url("@/assets/imgs/icon/icon-user.png")
+}
+
+.icon-user-link-account {
+    background-image: url("@/assets/images/icon/icon-user-link-account.png")
+}
+
+.icon-user-link-order {
+    background-image: url("@/assets/images/icon/icon-user-link-order.png")
+}
+
+.icon-user-link-realname {
+    background-image: url("@/assets/images/icon/icon-user-link-realname.png")
+}
+
+.icon-user-link-set {
+    background-image: url("@/assets/images/icon/icon-user-link-set.png")
+}
+
+.icon-user-link-help {
+    background-image: url("@/assets/images/icon/icon-user-link-help.png")
+}
+
+// common样式
+// $color-main
+.color-main {
+    color: $color-main;
+}
+
+// text-align
+.t-c {
+    text-align: center;
+}
+
+.t-l {
+    text-align: left;
+}
+
+.t-r {
+    text-align: right;
+}
+
+// float
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+// clearfix
+.clearfix {
+    @include clearfix
+}
+
+// font size
+.fs-24 {
+    font-size: 24px;
+}
+
+.fs-16 {
+    font-size: 16px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+// position
+.pr {
+    position: relative;
+}
+
+.pa {
+    position: absolute;
+}
+
+// margin
+.m-r-6 {
+    margin-right: 6px;
+}
+
+// user router links
+.links {
+    a {
+        position: relative;
+        display: block;
+        font-size: 15px;
+        color: #ffffff;
+        opacity: 0.4;
+        border-bottom: 1px solid rgba(255, 255, 255, .03);
+        height: 64px;
+        line-height: 64px;
+        padding-left: 36px;
+
+        .icon {
+            width: 30px;
+            height: 30px;
+            margin: 0px 18px -7px 0px;
+        }
+    }
+
+    .arrow::after {
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        margin-top: -5px;
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-top: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        opacity: .2;
+        box-sizing: border-box;
+        transform: rotate(45deg);
+    }
+}

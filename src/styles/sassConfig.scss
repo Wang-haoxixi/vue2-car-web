@@ -1,0 +1,15 @@
+$color-main: #34393f;
+
+/* clearfix */
+@mixin clearfix {
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+    }
+
+    *height: 1%;
+}

@@ -1,0 +1,90 @@
+.cars-warp {
+    position: fixed;
+    bottom: 94px;
+    left: 0;
+    right: 0;
+    z-index: 11;
+}
+
+.cars-swiper-warp {
+    position: relative;
+    padding: 0 155px;
+
+    .swiper-container {
+        overflow: inherit;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 60px;
+        height: 100px;
+        border-radius: 100px;
+        box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.2);
+        background-color: #FFFFFF;
+        margin-top: -50px;
+        transition: background-color 0.5s;
+
+        &.swiper-button-disabled {
+            opacity: 1;
+        }
+
+        &:hover {
+            background-color: $color-main;
+
+        }
+    }
+
+    .swiper-button-prev {
+        left: 53px;
+        background: none;
+        background-color: #FFFFFF;
+
+        &:after {
+            position: absolute;
+            content: "";
+            width: 17px;
+            height: 17px;
+            border-top: 2px solid #000;
+            border-left: 2px solid #000;
+            transform: rotate(-45deg);
+            left: 50%;
+            margin-left: -5px;
+            top: 50%;
+            margin-top: -10px;
+            box-sizing: border-box;
+        }
+
+        &:hover {
+            &:after {
+                border-color: #00a3ff;
+            }
+        }
+    }
+
+    .swiper-button-next {
+        right: 53px;
+        background: none;
+        background-color: #FFFFFF;
+
+        &:after {
+            position: absolute;
+            content: "";
+            width: 17px;
+            height: 17px;
+            border-top: 2px solid #000;
+            border-right: 2px solid #000;
+            transform: rotate(45deg);
+            right: 50%;
+            margin-right: -5px;
+            top: 50%;
+            margin-top: -10px;
+            box-sizing: border-box;
+        }
+
+        &:hover {
+            &:after {
+                border-color: #00a3ff;
+            }
+        }
+    }
+}
