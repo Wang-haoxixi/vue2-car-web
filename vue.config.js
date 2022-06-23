@@ -1,11 +1,3 @@
-/*
- * @Author: wanghao 1570058176@qq.com
- * @Date: 2022-04-22 00:33:41
- * @LastEditors: wanghao 1570058176@qq.com
- * @LastEditTime: 2022-06-21 23:59:41
- * @FilePath: \web\vue.config.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 const path = require('path');
 module.exports = {
   // 基本路径
@@ -30,7 +22,7 @@ module.exports = {
   },
   configureWebpack: (config) => {
     config.resolve = { // 配置解析别名
-      extensions: ['.js', '.json', '.vue'],  // 自动添加文件名后缀
+      extensions: ['.js', '.json', '.vue'], // 自动添加文件名后缀
       alias: {
         '@': path.resolve(__dirname, './src'),
         '@c': path.resolve(__dirname, './src/components')
@@ -88,8 +80,6 @@ module.exports = {
           [`^${process.env.VUE_APP_API_WEB}`]: ''
         }
       },
-
-      // http://www.web-jshtml.cn/api/vue3  /api/getCode
     }
   },
   /**
