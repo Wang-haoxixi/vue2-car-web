@@ -39,7 +39,7 @@ export default {
   methods: {
     // 初始化地图
     initMap() {
-      console.log('init...。。。。。。。。。。。。。。')
+      console.log('init...')
       this.map = aMapManager.getMap();
       // 设置点标记实例
       let marker = new AMap.Marker({
