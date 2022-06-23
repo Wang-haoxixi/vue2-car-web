@@ -1,11 +1,3 @@
-<!--
- * @Author: wanghao 1570058176@qq.com
- * @Date: 2022-04-24 23:14:01
- * @LastEditors: wanghao 1570058176@qq.com
- * @LastEditTime: 2022-06-23 23:54:13
- * @FilePath: \web\src\views\amap\index.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <template>
   <div id="index">
     <!-- vid:地图容器节点的ID -->
@@ -47,7 +39,7 @@ export default {
   methods: {
     // 初始化地图
     initMap() {
-      console.log('init..')
+      console.log('init...。。。。。。。。。。。。。。')
       this.map = aMapManager.getMap();
       // 设置点标记实例
       let marker = new AMap.Marker({
