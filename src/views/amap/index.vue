@@ -8,7 +8,6 @@
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
 const aMapManager = new AMapManager();
-console.log("aMapManager: ", aMapManager);
 export default {
   name: "Amap",
   data() {
