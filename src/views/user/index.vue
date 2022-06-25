@@ -1,7 +1,14 @@
+<!--
+ * @Description: 
+ * @Author: wh
+ * @Date: 2022-06-22 09:15:11
+ * @LastEditors: 
+ * @LastEditTime: 2022-06-25 09:24:51
+-->
 <template>
     <div>
         <div class="user-warp">
-            <img src="@/assets/images/avatar.png" alt="头像">
+            <img src="@/assets/images/微信头像.jpg" alt="头像">
             <div class="top-info">
                 <h4 class="name">1570058176@qq.com</h4>
                 <span>

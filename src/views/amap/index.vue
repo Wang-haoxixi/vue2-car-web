@@ -3,18 +3,22 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-25 00:12:00
+ * @LastEditTime: 2022-06-25 14:01:37
 -->
 <template>
   <div id="index">
     <!-- vid:地图容器节点的ID -->
     <el-amap class="aMapBox" vid="aMapBox" :events="events" :amapManager="amapManager" :zoom="zoom" :center="center">
-      <el-amap-circle :center="center" :radius="3" fillColor="#393e46" strokeColor="#393e46" strokeOpacity="0.2" strokeWeight="20"></el-amap-circle>
+      <!-- 点标记 -->
+      <el-amap-marker :position="marker.position" :icon="marker.icon"></el-amap-marker>
+      <!-- 圆⚪ -->
+      <el-amap-circle :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
     </el-amap>
   </div>
 </template>
 
 <script>
+  // 在定制化程度较高的项目中，开发者可能只想通过 vue-amap 引入高德地图，而部分实例化的操作直接基于高德地图的 sdk 完成。这个时候就需要 lazyAMapApiLoaderInstance。
   import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
   const aMapManager = new AMapManager();
   export default {
@@ -41,6 +45,26 @@
               _this.initMap();
             })
           },
+        },
+        // 圆
+        circle: {
+          events: {
+            init (obj) {
+              // 注册点击事件
+              obj.on("click", _this.handleClick);
+            }
+          },
+          center: [106.636969, 30.479522],
+          radius: "4", // 圆半径，单位:米
+          fillColor: "#393e46", // 圆形填充颜色,使用16进制颜色代码赋值。默认值为#006600
+          strokeColor: "#393e46", // 线条颜色，使用16进制颜色代码赋值。默认值为#006600
+          strokeOpacity: "0.2", // 轮廓线透明度，取值范围[0,1]，0表示完全透明，1表示不透明。默认为0.9
+          strokeWeight: 0, // 轮廓线宽度 目前用0-30
+        },
+        // 点标记
+        marker: {
+          position: [106.636969, 30.479522], // 点标记在地图上显示的位置，默认为地图中心点。
+          icon: require("@/assets/images/parking_location_img.png"), // 需在点标记中显示的图标。可以是一个本地图标地址。有合法的content内容时，此属性无效。
         },
       }
     },
@@ -69,7 +93,7 @@
           // buttonPosition: 'RB', //定位按钮的停靠位置
           showButton: false, //显示定位按钮，默认：true
           zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-          showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
+          // showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
           showCircle: false, //定位成功后用圆圈表示定位精度范围，默认：true
           panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
           markerOptions: { //定位点Marker的配置，不设置该属性则使用默认Marker样式
@@ -82,19 +106,40 @@
           console.log(status, result)
           if (status == 'complete') {
             console.log(111)
-            self.center = [result.position.lng, result.position.lat]
+            // 设置定位结果
+            self.circle.center = [result.position.lng, result.position.lat];
+            self.marker.position = [result.position.lng, result.position.lat];
+            // 圆特效
+            self.circleSpecific();
           } else {
-            console.log(222)
+            console.log(222);
           }
         });
-
-      }
+      },
+      /**
+       * @description: 圆特效
+       */
+      circleSpecific () {
+        let value = 0;
+        setInterval(() => {
+          value += 1;
+          if (value > 30) value = 0;
+          this.circle.strokeWeight = value;
+        }, 50);
+      },
+      /**
+       * @description: 圆点击事件
+       */
+      handleClick () {
+        console.log("handleClick...")
+      },
     },
 
     mounted () {
+      // 高德地图改版后需要加上安全密钥
       window._AMapSecurityConfig = {
         securityJsCode: '0375d68d1d64fd3dd8bf18843f68f2bc',
-      }
+      };
       // 项目加载完毕后再调用原生SDK
       // lazyAMapApiLoaderInstance.load().then(() => {
       //   this.map = new AMap.Map('aMapBox', {
