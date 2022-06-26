@@ -2,7 +2,7 @@
  * @Author: wanghao 1570058176@qq.com
  * @Date: 2022-04-22 00:16:36
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-26 20:10:32
+ * @LastEditTime: 2022-06-26 21:08:30
  * @FilePath: \web\src\views\index\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -80,7 +80,7 @@
       // 停车场接口
       getParkings () {
         Parking().then((res) => {
-          console.log(res)
+          // console.log(res)
         })
       }
     },
