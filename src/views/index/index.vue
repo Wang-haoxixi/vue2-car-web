@@ -2,14 +2,14 @@
  * @Author: wanghao 1570058176@qq.com
  * @Date: 2022-04-22 00:16:36
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-24 23:39:10
+ * @LastEditTime: 2022-06-26 20:10:32
  * @FilePath: \web\src\views\index\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div>
     <!-- 地图 -->
-    <Map />
+    <Map @loadMap="loadMap" />
 
     <!-- 汽车列表 -->
     <!-- <Cars /> -->
@@ -30,9 +30,10 @@
 </template>
 
 <script>
-  import Map from "../amap/index.vue"
-  import Cars from "../cars/index.vue"
+  import Map from "../amap/index.vue";
+  import Cars from "../cars/index.vue";
   import Navbar from "@/components/navbar/index";
+  import { Parking } from "@/api/parking";
   // 登录组件
   import Login from "./login.vue"
   export default {
@@ -71,6 +72,17 @@
           }
         }
       })
+    },
+    methods: {
+      loadMap () {
+        this.getParkings();
+      },
+      // 停车场接口
+      getParkings () {
+        Parking().then((res) => {
+          console.log(res)
+        })
+      }
     },
     watch: {
       /**

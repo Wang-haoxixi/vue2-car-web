@@ -3,16 +3,16 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-25 14:01:37
+ * @LastEditTime: 2022-06-26 17:08:13
 -->
 <template>
   <div id="index">
     <!-- vid:地图容器节点的ID -->
     <el-amap class="aMapBox" vid="aMapBox" :events="events" :amapManager="amapManager" :zoom="zoom" :center="center">
       <!-- 点标记 -->
-      <el-amap-marker :position="marker.position" :icon="marker.icon"></el-amap-marker>
+      <!-- <el-amap-marker :position="marker.position" :icon="marker.icon"></el-amap-marker> -->
       <!-- 圆⚪ -->
-      <el-amap-circle :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
+      <el-amap-circle v-for="(circle, index) in circles" :key="index" :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
     </el-amap>
   </div>
 </template>
@@ -31,7 +31,7 @@
         // 地图管理对象
         amapManager: aMapManager,
         zoom: 19, // 地图初始化缩放级别
-        center: [106.636969, 30.479522], // 地图中心点坐标值
+        center: [0, 0], // 地图中心点坐标值
         // 事件
         events: {
           /**
@@ -47,25 +47,25 @@
           },
         },
         // 圆
-        circle: {
+        circles: [{
           events: {
             init (obj) {
               // 注册点击事件
               obj.on("click", _this.handleClick);
             }
           },
-          center: [106.636969, 30.479522],
+          center: [106.636969, 30.479522], // 圆心位置
           radius: "4", // 圆半径，单位:米
           fillColor: "#393e46", // 圆形填充颜色,使用16进制颜色代码赋值。默认值为#006600
           strokeColor: "#393e46", // 线条颜色，使用16进制颜色代码赋值。默认值为#006600
           strokeOpacity: "0.2", // 轮廓线透明度，取值范围[0,1]，0表示完全透明，1表示不透明。默认为0.9
           strokeWeight: 0, // 轮廓线宽度 目前用0-30
-        },
+        }]
         // 点标记
-        marker: {
-          position: [106.636969, 30.479522], // 点标记在地图上显示的位置，默认为地图中心点。
-          icon: require("@/assets/images/parking_location_img.png"), // 需在点标记中显示的图标。可以是一个本地图标地址。有合法的content内容时，此属性无效。
-        },
+        // marker: {
+        //   position: [106.636969, 30.479522], // 点标记在地图上显示的位置，默认为地图中心点。
+        //   icon: require("@/assets/images/parking_location_img.png"), // 需在点标记中显示的图标。可以是一个本地图标地址。有合法的content内容时，此属性无效。
+        // },
       }
     },
 
@@ -74,8 +74,13 @@
       initMap () {
         const self = this;
         // console.log('init...')
+
         // 获取地图的实例
         this.map = aMapManager.getMap();
+
+        // 地图初始化完成回调
+        this.$emit("loadMap");
+
         // 设置点标记实例
         // let marker = new AMap.Marker({
         //   position: [106.636969, 30.479522],
@@ -105,10 +110,10 @@
         geolocation.getCurrentPosition(function(status, result) {
           console.log(status, result)
           if (status == 'complete') {
-            console.log(111)
+            // console.log(111)
             // 设置定位结果
-            self.circle.center = [result.position.lng, result.position.lat];
-            self.marker.position = [result.position.lng, result.position.lat];
+            self.circles[0].center = [result.position.lng, result.position.lat];
+            // self.marker.position = [result.position.lng, result.position.lat];
             // 圆特效
             self.circleSpecific();
           } else {
@@ -124,7 +129,7 @@
         setInterval(() => {
           value += 1;
           if (value > 30) value = 0;
-          this.circle.strokeWeight = value;
+          this.circles[0].strokeWeight = value;
         }, 50);
       },
       /**

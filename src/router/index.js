@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-25 17:56:57
+ * @LastEditTime: 2022-06-26 15:43:47
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -35,6 +35,10 @@ const routes = [
       }
     ],
   },
+
+  /**********************
+   * 以下为私人测试内容
+   */
   {
     path: "/test-maps", // 测试vue-amap的使用
     name: "TestMaps",
@@ -69,6 +73,21 @@ const routes = [
     path: "/circle",
     name: "Circle",
     component: () => import("../views/test-maps/圆⚪.vue")
+  },
+  {
+    path: "/polygon",
+    name: "Polygon",
+    component: () => import("../views/test-maps/多边形.vue")
+  },
+  {
+    path: "/discounting",
+    name: "Discounting",
+    component: () => import("../views/test-maps/折线.vue")
+  },
+  {
+    path: "/text",
+    name: "Text",
+    component: () => import("../views/test-maps/文本.vue")
   },
 ];
 const router = new VueRouter({
