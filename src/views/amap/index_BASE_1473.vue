@@ -1,19 +1,18 @@
 <!--
- * @Description: 地图组件
+ * @Description: 
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-06 23:17:54
+ * @LastEditTime: 2022-06-27 00:21:26
 -->
 <template>
   <div id="index">
     <!-- vid:地图容器节点的ID -->
     <el-amap class="aMapBox" vid="aMapBox" :events="events" :amapManager="amapManager" :zoom="zoom" :center="center">
-      <!-- 覆盖物-圆⚪ -->
+      <!-- 圆⚪ -->
       <el-amap-circle v-for="(circle, index) in circles" :key="index" :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
-      <!-- 覆盖物-点标记 -->
+      <!-- 点标记 -->
       <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id" :offset="marker.offset" :content="marker.content" :position="marker.position" :vid="index"></el-amap-marker>
-      <el-amap-marker v-for="(marker, index) in parkingMarkers" :offset="marker.offsetText" :content="marker.text" :position="marker.position"></el-amap-marker>
     </el-amap>
   </div>
 </template>
@@ -32,7 +31,7 @@
         map: null,
         // 地图管理对象
         amapManager: aMapManager,
-        zoom: 18, // 地图初始化缩放级别
+        zoom: 19, // 地图初始化缩放级别
         center: [0, 0], // 地图中心点坐标值
         // 事件
         events: {
@@ -56,8 +55,7 @@
               obj.on("click", _this.handleClick);
             }
           },
-          // center: [106.636969, 30.479522], // 圆心位置
-          center: [0, 0], // 圆心位置
+          center: [106.636969, 30.479522], // 圆心位置
           radius: "4", // 圆半径，单位:米
           fillColor: "#393e46", // 圆形填充颜色,使用16进制颜色代码赋值。默认值为#006600
           strokeColor: "#393e46", // 线条颜色，使用16进制颜色代码赋值。默认值为#006600
@@ -78,8 +76,6 @@
             offset: [-35, -63],
           },
         ],
-        // 停车场车辆数
-        parkingCarNumber: [],
 
         // 定时器
         timer: null,
@@ -111,16 +107,11 @@
 
       // 定位成功的回调
       onComplete (data) {
-        // console.log('onComplete...', data)
+        console.log('onComplete...', data)
         // 设置定位结果
         this.circles[0].center = [data.position.lng, data.position.lat];
         // 加载圆特效
         this.loadCircleSpecific();
-      },
-
-      // 定位出错的回调
-      onError (error) {
-        // console.log('error...', error)
       },
 
       // 自身定位
@@ -128,7 +119,6 @@
         selfLocation({
           map: this.map,
           onComplete: this.onComplete,
-          onError: this.onError,
         })
       },
 
@@ -152,14 +142,6 @@
       handleClick () {
         console.log("handleClick...")
       },
-      /**
-       * @description: 停车场数据
-       */
-      parkingData (data) {
-        console.log(1111111, data)
-        this.parkingMarkers = data;
-        this.parkingCarNumber = data;
-      }
     },
 
     mounted () {
@@ -177,7 +159,7 @@
     },
 
     watch: {
-      // 仓库isLocation状态值改变即进行定位操作
+      // 仓库状态值改变即进行定位操作
       "$store.state.location.isLocation": {
         handler () {
           // 自身定位
