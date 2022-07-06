@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-26 15:43:47
+ * @LastEditTime: 2022-07-06 17:53:13
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -12,13 +12,11 @@ import TestMaps from "../views/test-maps/index.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     name: "Home",
     component: Home,
-    children: [
-      {
+    children: [{
         path: "/user", //会员中心
         name: "User",
         component: () => import("../views/user/index.vue")
@@ -88,6 +86,74 @@ const routes = [
     path: "/text",
     name: "Text",
     component: () => import("../views/test-maps/文本.vue")
+  },
+  {
+    path: "/bezier",
+    name: "Bezier",
+    component: () => import("../views/test-maps/贝塞尔曲线.vue")
+  },
+  {
+    path: "/circle-marker",
+    name: "CircleMarker",
+    component: () => import("../views/test-maps/圆点标记.vue")
+  },
+  {
+    path: "/ellipse",
+    name: "Ellipse",
+    component: () => import("../views/test-maps/椭圆.vue")
+  },
+  {
+    path: "/info-window",
+    name: "InfoWindow",
+    component: () => import("../views/test-maps/信息窗体.vue")
+  },
+  {
+    path: "/search-box",
+    name: "SearchBox",
+    component: () => import("../views/test-maps/搜索组件.vue")
+  },
+
+  {
+    path: "/handbook",
+    name: "Handbook", // 插件使用指南
+    component: () => import("../views/test-maps/插件使用指南.vue")
+  },
+  {
+    path: "/plugin-type",
+    name: "PluginType",
+    component: () => import("../views/test-maps/类型插件.vue")
+  },
+  {
+    path: "/plugin-eye",
+    name: "PluginEye",
+    component: () => import("../views/test-maps/鹰眼插件.vue")
+  },
+  {
+    path: "/plugin-scale",
+    name: "PluginScale",
+    component: () => import("../views/test-maps/比例尺插件.vue")
+  },
+  {
+    path: "/plugin-toolBar",
+    name: "PluginToolBar",
+    component: () => import("../views/test-maps/工具条插件.vue")
+  },
+  {
+    path: "/plugin-location",
+    name: "PluginLocation",
+    component: () => import("../views/test-maps/定位插件.vue")
+  },
+
+  {
+    path: "/custom-component-handbook",
+    name: "CustomComponentHandbook", // 自定义组件指南
+    component: () => import("../views/test-maps/自定义组件指南.vue")
+  },
+
+  {
+    path: "/aggregate",
+    name: "Aggregate", // 点坐标 - 聚合
+    component: () => import("../views/test-maps/点坐标(聚合).vue")
   },
 ];
 const router = new VueRouter({
