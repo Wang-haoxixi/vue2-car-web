@@ -2,7 +2,7 @@
  * @Author: wanghao 1570058176@qq.com
  * @Date: 2022-04-22 00:16:36
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-06 00:31:14
+ * @LastEditTime: 2022-07-06 23:53:09
  * @FilePath: \web\src\views\index\index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -76,7 +76,9 @@
     methods: {
       // 地图初始化完成时回调
       loadMap () {
-        this.getParkings();
+        this.$nextTick(() => {
+          this.getParkings();
+        })
       },
       // 停车场接口
       getParkings () {
@@ -88,7 +90,7 @@
             item.content = "<img src='" + require('@/assets/images/parking_location_img.png') + "' />"; //点标记图
             item.offset = [-35, -63]; //点标记偏移量
             item.offsetText = [-35, -40]; //文本偏移量
-            item.text = `<div style="width:70px;color:#fff;text-align:center">${item.carsNumber}</div>` ; //文本内容
+            item.text = `<div style="width:70px;color:#fff;text-align:center">${item.carsNumber}</div>`; //文本内容
           })
           // console.log(data)
           // 调用子组件地图的方法(父组件调子组件方法)

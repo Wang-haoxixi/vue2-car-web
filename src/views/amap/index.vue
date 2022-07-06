@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-06 23:17:54
+ * @LastEditTime: 2022-07-06 23:52:55
 -->
 <template>
   <div id="index">
@@ -12,8 +12,13 @@
       <!-- 覆盖物-圆⚪ -->
       <el-amap-circle v-for="(circle, index) in circles" :key="index" :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
       <!-- 覆盖物-点标记 -->
-      <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id" :offset="marker.offset" :content="marker.content" :position="marker.position" :vid="index"></el-amap-marker>
-      <el-amap-marker v-for="(marker, index) in parkingMarkers" :offset="marker.offsetText" :content="marker.text" :position="marker.position"></el-amap-marker>
+      <div>
+        <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id" :offset="marker.offset" :content="marker.content" :position="marker.position" :vid="index"></el-amap-marker>
+      </div>
+      <!-- 车辆数 -->
+      <div>
+        <el-amap-marker v-for="(item) in parkingMarkers" :key="item.id" :offset="item.offsetText" :content="item.text" :position="item.position" :vid="item.id"></el-amap-marker>
+      </div>
     </el-amap>
   </div>
 </template>
