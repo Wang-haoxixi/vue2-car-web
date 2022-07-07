@@ -3,22 +3,18 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-06 23:52:55
+ * @LastEditTime: 2022-07-07 23:26:33
 -->
 <template>
   <div id="index">
     <!-- vid:地图容器节点的ID -->
     <el-amap class="aMapBox" vid="aMapBox" :events="events" :amapManager="amapManager" :zoom="zoom" :center="center">
       <!-- 覆盖物-圆⚪ -->
-      <el-amap-circle v-for="(circle, index) in circles" :key="index" :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
+      <el-amap-circle v-for="(circle, index) in circles" :key="index + 2" :events="circle.events" :center="circle.center" :radius="circle.radius" :fillColor="circle.fillColor" :strokeColor="circle.strokeColor" :strokeOpacity="circle.strokeOpacity" :strokeWeight="circle.strokeWeight"></el-amap-circle>
       <!-- 覆盖物-点标记 -->
-      <div>
-        <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id" :offset="marker.offset" :content="marker.content" :position="marker.position" :vid="index"></el-amap-marker>
-      </div>
+      <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id + index" :offset="marker.offset" :content="marker.content" :position="marker.position"></el-amap-marker>
       <!-- 车辆数 -->
-      <div>
-        <el-amap-marker v-for="(item) in parkingMarkers" :key="item.id" :offset="item.offsetText" :content="item.text" :position="item.position" :vid="item.id"></el-amap-marker>
-      </div>
+      <el-amap-marker v-for="(item) in parkingMarkers" :key="item.lnglat" :offset="item.offsetText" :content="item.text" :position="item.position" :events="item.events"></el-amap-marker>
     </el-amap>
   </div>
 </template>
@@ -27,6 +23,7 @@
   // 在定制化程度较高的项目中，开发者可能只想通过 vue-amap 引入高德地图，而部分实例化的操作直接基于高德地图的 sdk 完成。这个时候就需要 lazyAMapApiLoaderInstance。
   import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
   import { selfLocation } from "./location";
+  import { toWalking } from "./walking";
   const aMapManager = new AMapManager();
   export default {
     name: "Amap",
@@ -116,7 +113,7 @@
 
       // 定位成功的回调
       onComplete (data) {
-        // console.log('onComplete...', data)
+        console.log('onComplete...', data)
         // 设置定位结果
         this.circles[0].center = [data.position.lng, data.position.lat];
         // 加载圆特效
@@ -164,6 +161,19 @@
         console.log(1111111, data)
         this.parkingMarkers = data;
         this.parkingCarNumber = data;
+      },
+      /**
+       * @description: 步行导航
+       */
+      handleWalking () {
+        // console.log('walking');
+        const params = {
+          map: this.map, // 地图实例
+          location_start: [106.554427, 29.561861], // 起点
+          location_end: [106.552604, 29.561422], // 终点
+        }
+        // 调用高德api
+        toWalking(params);
       }
     },
 
