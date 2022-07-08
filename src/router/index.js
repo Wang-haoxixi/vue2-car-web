@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-06 17:53:13
+ * @LastEditTime: 2022-07-07 10:50:39
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -37,6 +37,7 @@ const routes = [{
   /**********************
    * 以下为私人测试内容
    */
+  // vue-amap 组件测试
   {
     path: "/test-maps", // 测试vue-amap的使用
     name: "TestMaps",
@@ -154,6 +155,23 @@ const routes = [{
     path: "/aggregate",
     name: "Aggregate", // 点坐标 - 聚合
     component: () => import("../views/test-maps/点坐标(聚合).vue")
+  },
+
+  // grid宫格
+  {
+    path: "/css-grid-fr",
+    name: "CssGridFr", // fr单位
+    component: () => import("../views/test-css/grid-fr.vue")
+  },
+  {
+    path: "/css-grid-repeat",
+    name: "CssGridRepeat", // repeat()函数
+    component: () => import("../views/test-css/grid-repeat.vue")
+  },
+  {
+    path: "/css-grid-gap",
+    name: "CssGridGap", // gap属性
+    component: () => import("../views/test-css/grid-gap.vue")
   },
 ];
 const router = new VueRouter({

@@ -1,0 +1,61 @@
+<!--
+ * @Description: 基于模块化实现 MVC
+ * @Author: wh
+ * @Date: 2022-07-07 11:29:56
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-07-07 11:37:16
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.8.2/angular.js"></script>
+</head>
+
+<!-- 
+	首先简单介绍几个标签的作用：
+	ng-app 在任何元素上使用，代表 angular 应用作用域
+	ng-controller 指定控制器
+	ng-model 指定模型Model
+	ng-bind 或者 {{属性名}} 进行属性取值 用于显示
+  -->
+<!-- 
+  ps:在 AngularJS 的 1.3 Beta15 版本之前，可以定义全局控制器 <body ng-app ng-controller=”控制器方法名”> 在 AngularJS 的 1.3 Beta15 版本后，
+  使用控制器，必须要指定模块 <body ng-app=”模块名” ng-controller=”控制器方法名”>
+  -->
+
+<!-- demo 2 -->
+
+<body>
+  <!-- ng-app="myapp" 定义了一个模块 -->
+  <div ng-app="myapp" ng-controller="myctrl">
+    <div>
+      <!-- ng-model模型作用  -->
+      <input type="text" name="name" ng-model="name" />
+    </div>
+    <div>
+      <!-- {{}} 等价于 ng-bind 用于数据显示 -->
+      Hello, {{name}}
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // 初始化 myapp 模块 
+    var myapp = angular.module("myapp", []);
+
+    // 定义模块的控制器 
+    // 依赖注入 ，$scope作用域对象，操作当前作用域视图 
+    myapp.controller("myctrl", ["$scope", function($scope) {
+      console.log("$scope: ", $scope)
+      // 对模型进行初始化赋值 
+      $scope.name = "I an demo2";
+    }]);
+  </script>
+</body>
+
+
+</html>

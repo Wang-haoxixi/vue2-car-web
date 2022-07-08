@@ -1,0 +1,42 @@
+<!--
+ * @Description: 双向数据绑定
+ * @Author: wh
+ * @Date: 2022-07-07 10:59:38
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-07-07 11:31:33
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.8.2/angular.js"></script>
+</head>
+
+<!-- 
+	首先简单介绍几个标签的作用：
+	ng-app 在任何元素上使用，代表 angular 应用作用域
+	ng-controller 指定控制器
+	ng-model 指定模型Model
+	ng-bind 或者 {{属性名}} 进行属性取值 用于显示
+ -->
+
+<!--ng-app指定angular的作用域-->
+
+<!-- demo 1 -->
+
+<body ng-app>
+  <div>
+    <!--模型Model的作用-->
+    <input type="text" placeholder="请输入内容" ng-model="name" />
+  </div>
+  <div>
+    <!--等价于ng-bind用于视图显示-->
+    HELLO, {{name}}
+  </div>
+</body>
+
+</html>

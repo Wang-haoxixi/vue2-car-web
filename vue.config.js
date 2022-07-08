@@ -11,7 +11,10 @@ module.exports = {
    **/
   chainWebpack: (config) => {
     // const svgRule = config.module.rule("svg");
+    // 清除已有的所有 loader。
+    // 如果你不这样做，接下来的 loader 会附加在该规则现有的 loader 之后。
     // svgRule.uses.clear();
+    // 添加要替换的 loader
     // svgRule
     //   .use("svg-sprite-loader")
     //   .loader("svg-sprite-loader")
@@ -35,7 +38,7 @@ module.exports = {
   css: {
     // 是否使用css分离插件 ExtractTextPlugin
     extract: true,
-    // 开启 CSS source maps?
+    // 开启 CSS source maps? 设置为 true 之后可能会影响构建的性能
     sourceMap: false,
     // css预设器配置项
     loaderOptions: {
@@ -46,6 +49,7 @@ module.exports = {
   },
   // use thread-loader for babel & TS in production build
   // enabled by default if the machine has more than 1 cores
+  // 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
   parallel: require('os').cpus().length > 1,
   /**
    *  PWA 插件相关配置,see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
@@ -60,6 +64,7 @@ module.exports = {
     hot: true, // 开启热加载
     // hotOnly: false,
     /**
+     * 如果你的前端应用和后端 API 服务器没有运行在同一个主机上，你需要在开发环境下将 API 请求代理到 API 服务器
      * 多个接口跨域配置
      */
     proxy: {
