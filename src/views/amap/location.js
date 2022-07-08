@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-26 20:41:44
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-26 21:38:13
+ * @LastEditTime: 2022-07-08 09:40:22
  */
 
 let geolocation = null; // 定义一个定位
@@ -41,10 +41,10 @@ export function selfLocation (params) {
   });
 
   // 另一种是通过事件监听来取得定位结果
-  if (params.onComplete && typeof params.onComplete === 'function') {
-    AMap.event.addListener(geolocation, 'complete', params.onComplete); //返回定位信息
+  if (params.locationSuccess && typeof params.locationSuccess === 'function') {
+    AMap.event.addListener(geolocation, 'complete', params.locationSuccess); //返回定位信息
   }
-  if (params.onError && typeof params.onError === 'function') {
-    AMap.event.addListener(geolocation, 'error', params.onError); //返回定位出错信息
+  if (params.locationError && typeof params.locationError === 'function') {
+    AMap.event.addListener(geolocation, 'error', params.locationError); //返回定位出错信息
   }
 }

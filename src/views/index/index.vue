@@ -1,10 +1,9 @@
 <!--
- * @Author: wanghao 1570058176@qq.com
- * @Date: 2022-04-22 00:16:36
+ * @Description: 首页布局页面
+ * @Author: wh
+ * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-07 22:59:43
- * @FilePath: \web\src\views\index\index.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @LastEditTime: 2022-07-08 09:55:38
 -->
 <template>
   <div>
@@ -90,7 +89,8 @@
             item.offsetText = [-25, -57]; //文本偏移量
             item.text = `<div style="width:50px;height: 55px;color:#fff;text-align:center;line-height: 52px">${item.carsNumber}</div>`; //文本内容
             item.events = {
-              click: (o) => this.aaa(o)
+              // 点击事件 (此时不能传o，o为当前点击点的地图实例数据，不是停车场的坐标，应该传当前停车场item.lnglat)
+              click: (o) => this.walking(o, item)
             }
           })
           // console.log(data)
@@ -98,9 +98,14 @@
           this.$refs.map.parkingData(data);
         })
       },
-      aaa (o) {
+      // 步行导航
+      walking (o, item) {
+        // console.log("o: ", o)
+        // console.log("item: ", item)
+        // 终点
+        let lacation_end = item.lnglat.split(",");
         // 调用子组件中的handleWalking方法
-        this.$refs.map.handleWalking();
+        this.$refs.map.handleWalking(lacation_end);
       }
     },
     watch: {

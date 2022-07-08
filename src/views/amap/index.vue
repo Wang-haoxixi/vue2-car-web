@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-07 23:26:33
+ * @LastEditTime: 2022-07-08 09:57:14
 -->
 <template>
   <div id="index">
@@ -46,6 +46,7 @@
             // console.log('e: ', e);
             // 地图加载完毕后调用 异步调用
             lazyAMapApiLoaderInstance.load().then(() => {
+              // 初始化地图
               _this.initMap();
             })
           },
@@ -112,8 +113,8 @@
       },
 
       // 定位成功的回调
-      onComplete (data) {
-        console.log('onComplete...', data)
+      locationSuccess (data) {
+        console.log('locationSuccess...', data)
         // 设置定位结果
         this.circles[0].center = [data.position.lng, data.position.lat];
         // 加载圆特效
@@ -121,16 +122,16 @@
       },
 
       // 定位出错的回调
-      onError (error) {
-        // console.log('error...', error)
+      locationError (error) {
+        console.log('locationError...', error)
       },
 
       // 自身定位
       toLocation () {
         selfLocation({
           map: this.map,
-          onComplete: this.onComplete,
-          onError: this.onError,
+          locationSuccess: this.locationSuccess,
+          locationError: this.locationError,
         })
       },
 
@@ -165,14 +166,14 @@
       /**
        * @description: 步行导航
        */
-      handleWalking () {
+      handleWalking (location_end_data) {
         // console.log('walking');
         const params = {
           map: this.map, // 地图实例
-          location_start: [106.554427, 29.561861], // 起点
-          location_end: [106.552604, 29.561422], // 终点
+          location_start: this.circles[0].center, // 起点
+          location_end: location_end_data, // 终点
         }
-        // 调用高德api
+        // 调用高德步行导航
         toWalking(params);
       }
     },

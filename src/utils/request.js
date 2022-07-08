@@ -1,9 +1,9 @@
 /*
- * @Description: 
+ * @Description: 请求封装
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-22 11:17:58
+ * @LastEditTime: 2022-07-08 09:31:58
  */
 import axios from "axios";
 // cookies
