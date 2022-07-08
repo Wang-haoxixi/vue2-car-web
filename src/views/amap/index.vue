@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 09:57:14
+ * @LastEditTime: 2022-07-08 10:41:25
 -->
 <template>
   <div id="index">
@@ -170,7 +170,7 @@
         // console.log('walking');
         const params = {
           map: this.map, // 地图实例
-          location_start: this.circles[0].center, // 起点
+          location_start: this.circles[0].center, // 起点 即当前定位的圆点坐标
           location_end: location_end_data, // 终点
         }
         // 调用高德步行导航

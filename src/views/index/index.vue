@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 09:55:38
+ * @LastEditTime: 2022-07-08 15:32:51
 -->
 <template>
   <div>
@@ -17,7 +17,7 @@
     <Navbar />
 
     <!-- 会员 -->
-    <!-- 方式一 -->
+    <!-- 方式一<控制菜单显隐> -->
     <!-- <div id="children-view" :class="[isShowRightMenu ? 'open' : '']"> -->
     <div id="children-view" :class="{open: isShowRightMenu}">
       <router-view></router-view>
@@ -46,7 +46,7 @@
     },
     computed: {
       /**
-       * 第二种控制菜单显隐的方式
+       * 方式二<控制菜单显隐>
        */
       isShowRightMenu () {
         let routerName = this.$route.name
@@ -60,11 +60,11 @@
         // 获取会员内容区的DOM对象
         const userDOM = document.getElementById("children-view");
         if (userDOM) {
-          // 判断userDOM对象是否包含源对象
+          // 判断userDOM对象是否包含源对象(用于判断DOM元素的包含关系,它以HTMLElement为参数,且返回布尔值)
           if (!userDOM.contains(e.target)) {
             // 若已经是在home了，就阻止行为
             if (this.$route.name === "Home") return false;
-            // 不包含就关闭会员界面
+            // 不包含就关闭会员界面(因为isShowRightMenu计算属性的原因,只需要改变$router就行)
             this.$router.push({
               name: "Home",
             })

@@ -3,9 +3,13 @@
  * @Author: wanghao
  * @Date: 2022-07-07 22:35:36
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-07 23:19:31
+ * @LastEditTime: 2022-07-08 10:40:18
  */
 let walking = null; // 定义一个步行
+/**
+ * @description: 步行导航
+ * @param {Object} params 步行导航规划所需参数
+ */
 export function toWalking (params) {
   // 若不存在实例，才创建一个新的实例对象，否则就用已有的实例（优化）
   if (!walking) {
