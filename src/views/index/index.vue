@@ -1,9 +1,10 @@
 <!--
- * @Description: 首页
- * @Author: wh
- * @Date: 2022-06-22 09:15:11
+ * @Author: wanghao 1570058176@qq.com
+ * @Date: 2022-04-22 00:16:36
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-07 13:40:10
+ * @LastEditTime: 2022-07-07 22:59:43
+ * @FilePath: \web\src\views\index\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div>
@@ -75,9 +76,7 @@
     methods: {
       // 地图初始化完成时回调
       loadMap () {
-        this.$nextTick(() => {
-          this.getParkings();
-        })
+        this.getParkings();
       },
       // 停车场接口
       getParkings () {
@@ -88,13 +87,20 @@
             item.position = item.lnglat.split(","); //点标记坐标
             item.content = "<img src='" + require('@/assets/images/parking_location_img.png') + "' />"; //点标记图
             item.offset = [-35, -63]; //点标记偏移量
-            item.offsetText = [-35, -40]; //文本偏移量
-            item.text = `<div style="width:70px;color:#fff;text-align:center">${item.carsNumber}</div>`; //文本内容
+            item.offsetText = [-25, -57]; //文本偏移量
+            item.text = `<div style="width:50px;height: 55px;color:#fff;text-align:center;line-height: 52px">${item.carsNumber}</div>`; //文本内容
+            item.events = {
+              click: (o) => this.aaa(o)
+            }
           })
           // console.log(data)
           // 调用子组件地图的方法(父组件调子组件方法)
           this.$refs.map.parkingData(data);
         })
+      },
+      aaa (o) {
+        // 调用子组件中的handleWalking方法
+        this.$refs.map.handleWalking();
       }
     },
     watch: {
