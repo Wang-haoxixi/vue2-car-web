@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 15:32:51
+ * @LastEditTime: 2022-07-09 00:20:18
 -->
 <template>
   <div>
@@ -87,10 +87,11 @@
             item.content = "<img src='" + require('@/assets/images/parking_location_img.png') + "' />"; //点标记图
             item.offset = [-35, -63]; //点标记偏移量
             item.offsetText = [-25, -57]; //文本偏移量
-            item.text = `<div style="width:50px;height: 55px;color:#fff;text-align:center;line-height: 52px">${item.carsNumber}</div>`; //文本内容
+            //文本内容
+            item.text = `<div style="width:50px;height: 55px;color:#fff;text-align:center;line-height: 52px">${item.carsNumber}</div>`;
             item.events = {
-              // 点击事件 (此时不能传o，o为当前点击点的地图实例数据，不是停车场的坐标，应该传当前停车场item.lnglat)
-              click: (o) => this.walking(o, item)
+              // 点击事件 
+              click: (o) => this.walking(o)
             }
           })
           // console.log(data)
@@ -99,13 +100,14 @@
         })
       },
       // 步行导航
-      walking (o, item) {
-        // console.log("o: ", o)
-        // console.log("item: ", item)
+      walking (o) {
+        // console.log("o: ", o.target.getExtData())
+        // 获取用户自定义属性
+        let extData = o.target.getExtData(); //getExtData() ref方法 获取用户自定义属性
         // 终点
-        let lacation_end = item.lnglat.split(",");
+        // let lacation_end = extData.lnglat.split(",");
         // 调用子组件中的handleWalking方法
-        this.$refs.map.handleWalking(lacation_end);
+        this.$refs.map.handleWalking(extData);
       }
     },
     watch: {

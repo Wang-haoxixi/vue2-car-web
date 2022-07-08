@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 10:41:25
+ * @LastEditTime: 2022-07-09 00:27:34
 -->
 <template>
   <div id="index">
@@ -14,7 +14,9 @@
       <!-- 覆盖物-点标记 -->
       <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id + index" :offset="marker.offset" :content="marker.content" :position="marker.position"></el-amap-marker>
       <!-- 车辆数 -->
-      <el-amap-marker v-for="(item) in parkingMarkers" :key="item.lnglat" :offset="item.offsetText" :content="item.text" :position="item.position" :events="item.events"></el-amap-marker>
+      <el-amap-marker v-for="(item) in parkingMarkers" :key="item.lnglat" :offset="item.offsetText" :content="item.text" :position="item.position" :events="item.events" :extData="item"></el-amap-marker>
+      <!-- 停车场信息 -->
+      <el-amap-marker v-for="(item,index) in parkingInfo" :key="index" :offset="item.offsetInfo" :content="item.info" :position="item.position"></el-amap-marker>
     </el-amap>
   </div>
 </template>
@@ -36,6 +38,10 @@
         amapManager: aMapManager,
         zoom: 18, // 地图初始化缩放级别
         center: [0, 0], // 地图中心点坐标值
+        // 自身经度
+        self_lng: "",
+        // 自身纬度
+        self_lat: "",
         // 事件
         events: {
           /**
@@ -84,6 +90,15 @@
         // 停车场车辆数
         parkingCarNumber: [],
 
+        // 停车场信息
+        parkingInfo: [],
+
+        // 当前选中的停车场位置
+        parkingLngLat: 0,
+
+        // 停车场数据
+        parkingBase: {},
+
         // 定时器
         timer: null,
       }
@@ -115,8 +130,10 @@
       // 定位成功的回调
       locationSuccess (data) {
         console.log('locationSuccess...', data)
+        this.self_lng = data.position.lng;
+        this.self_lat = data.position.lat;
         // 设置定位结果
-        this.circles[0].center = [data.position.lng, data.position.lat];
+        this.circles[0].center = [this.self_lng, this.self_lat];
         // 加载圆特效
         this.loadCircleSpecific();
       },
@@ -166,16 +183,36 @@
       /**
        * @description: 步行导航
        */
-      handleWalking (location_end_data) {
-        // console.log('walking');
+      handleWalking (data) {
+        console.log('data',data);
+        // 存储被点击的停车场数据
+        this.parkingBase = data;
+        this.parkingLngLat = data.lnglat.split(",");
         const params = {
           map: this.map, // 地图实例
-          location_start: this.circles[0].center, // 起点 即当前定位的圆点坐标
-          location_end: location_end_data, // 终点
+          location_start: [this.self_lng, this.self_lat], // 起点 即当前定位的圆点坐标
+          location_end: this.parkingLngLat, // 终点
+          // 步行导航成功的回调
+          walkingSuccess: (result) => this.walkingSuccess(result),
+          // 步行导航失败的回调
+          walkingError: (result) => this.walkingError(result),
         }
         // 调用高德步行导航
         toWalking(params);
-      }
+      },
+      // 步行导航成功的回调
+      walkingSuccess (result) {
+        console.log("Walking Success", result)
+        this.parkingInfo = [{
+          position: this.parkingLngLat,
+          offsetInfo: [-25, -57],
+          info: `<div style="width:300px;height:51px;padding: 0 20px;font-size: 16px;color: #fff;background-color: #34393f;border-radius: 100px;line-height: 51px;"><strong>${this.parkingBase.carsNumber}</strong>，车辆距离您 ${result.routes[0].distance} 米</div>`,
+        }]
+      },
+      // 步行导航失败的回调
+      walkingError (result) {
+        console.log("Walking Error", result)
+      },
     },
 
     mounted () {
