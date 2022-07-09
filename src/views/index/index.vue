@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-09 00:20:18
+ * @LastEditTime: 2022-07-09 17:44:09
 -->
 <template>
   <div>
@@ -84,7 +84,7 @@
           // 处理数据
           data.forEach(item => {
             item.position = item.lnglat.split(","); //点标记坐标
-            item.content = "<img src='" + require('@/assets/images/parking_location_img.png') + "' />"; //点标记图
+            item.content = "<img style='width: 70px!important;height: 70px!important;' src='" + require('@/assets/images/parking_location_img.png') + "' />"; //点标记图
             item.offset = [-35, -63]; //点标记偏移量
             item.offsetText = [-25, -57]; //文本偏移量
             //文本内容

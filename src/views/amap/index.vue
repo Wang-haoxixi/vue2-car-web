@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-09 00:27:34
+ * @LastEditTime: 2022-07-09 17:44:19
 -->
 <template>
   <div id="index">
@@ -14,7 +14,7 @@
       <!-- 覆盖物-点标记 -->
       <el-amap-marker v-for="(marker, index) in parkingMarkers" :key="marker.id + index" :offset="marker.offset" :content="marker.content" :position="marker.position"></el-amap-marker>
       <!-- 车辆数 -->
-      <el-amap-marker v-for="(item) in parkingMarkers" :key="item.lnglat" :offset="item.offsetText" :content="item.text" :position="item.position" :events="item.events" :extData="item"></el-amap-marker>
+      <el-amap-marker v-for="(item) in parkingCarNumber" :key="item.lnglat" :offset="item.offsetText" :content="item.text" :position="item.position" :events="item.events" :extData="item"></el-amap-marker>
       <!-- 停车场信息 -->
       <el-amap-marker v-for="(item,index) in parkingInfo" :key="index" :offset="item.offsetInfo" :content="item.info" :position="item.position"></el-amap-marker>
     </el-amap>
@@ -184,7 +184,7 @@
        * @description: 步行导航
        */
       handleWalking (data) {
-        console.log('data',data);
+        console.log('data', data);
         // 存储被点击的停车场数据
         this.parkingBase = data;
         this.parkingLngLat = data.lnglat.split(",");
