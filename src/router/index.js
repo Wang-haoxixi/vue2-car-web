@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-07 10:50:39
+ * @LastEditTime: 2022-07-09 16:16:33
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -172,6 +172,83 @@ const routes = [{
     path: "/css-grid-gap",
     name: "CssGridGap", // gap属性
     component: () => import("../views/test-css/grid-gap.vue")
+  },
+
+  // formCreate 
+  // form-create 是一个可以通过 JSON 生成具有动态渲染、数据收集、验证和提交功能的表单生成组件
+  {
+    path: "/form-create-test",
+    name: "FormCreateTest", // <form-create></form-create>组件模式
+    component: () => import("../views/form-create")
+  },
+  {
+    path: "/vue-prototype-methods",
+    name: "Vue 原型方法.vue", // vue 原型方法
+    component: () => import("../views/form-create/vue 原型方法.vue")
+  },
+  {
+    path: "/win-methods",
+    name: "window全局方法", // window全局方法
+    component: () => import("../views/form-create/window全局方法.vue")
+  },
+  {
+    path: "/input",
+    name: "Input 输入框", // Input 输入框
+    component: () => import("../views/form-create/Input 输入框.vue")
+  },
+
+  // avue
+  {
+    path: "/avue",
+    name: "Avue", // $DialogForm弹窗表单
+    component: () => import("../views/avue")
+  },
+  {
+    path: "/clipboard",
+    name: "$Clipboard", // $Clipboard复制到剪切板
+    component: () => import("../views/avue/$Clipboard复制到剪切板.vue")
+  },
+  {
+    path: "/imagePreview",
+    name: "$ImagePreview", // $ImagePreview图片预览
+    component: () => import("../views/avue/$ImagePreview图片预览.vue")
+  },
+  {
+    path: "/exportExcel",
+    name: "$ExportExcel", // $ExportExcel导出
+    component: () => import("../views/avue/$ExportExcel导出.vue")
+  },
+  {
+    path: "/log",
+    name: "$Log", // $Log日志打印
+    component: () => import("../views/avue/$Log日志打印.vue")
+  },
+  {
+    path: "/watermark",
+    name: "Watermark", // watermark全局水印
+    component: () => import("../views/avue/watermark全局水印.vue")
+  },
+  {
+    path: "/downFile",
+    name: "DownFile", // downFile文件下载
+    component: () => import("../views/avue/downFile文件下载.vue")
+  },
+  {
+    path: "/validatenull",
+    name: "Validatenull", // validatenull判断空
+    component: () => import("../views/avue/validatenull判断空.vue")
+  },
+
+  // avue components
+  {
+    path: "/avue-input",
+    name: "AvueInput", // avue-input输入框
+    component: () => import("../views/avue/components/avue-input")
+  },
+  {
+    path: "/avue-inputTree",
+    name: "AvueInputTree", // inputTree树型组件
+    component: () => import("../views/avue/components/avue-inputTree.vue")
   },
 ];
 const router = new VueRouter({
