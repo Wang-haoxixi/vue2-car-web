@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-07-07 22:35:36
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 10:40:18
+ * @LastEditTime: 2022-07-08 22:43:46
  */
 let walking = null; // 定义一个步行
 /**
@@ -23,9 +23,9 @@ export function toWalking (params) {
   walking.search(params.location_start, params.location_end, (status, result) => {
     // result即是对应的步行路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_WalkingResult
     if (status === 'complete') {
-      console.log('绘制步行路线完成', result)
+      if (params.walkingSuccess && typeof params.walkingSuccess === 'function') return params.walkingSuccess(result);
     } else {
-      console.log('步行路线数据查询失败' + result)
+      if (params.walkingError && typeof params.walkingError === 'function') return params.walkingError(result);
     }
   });
 }
