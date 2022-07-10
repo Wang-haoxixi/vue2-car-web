@@ -1,9 +1,9 @@
 /*
- * @Description: 
+ * @Description: 停车场信息弹窗样式
  * @Author: wanghao
  * @Date: 2022-07-10 12:54:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-10 15:56:53
+ * @LastEditTime: 2022-07-10 18:44:42
  */
 const styleCss = {
   parkingInfoWarp: `

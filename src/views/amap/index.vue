@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-10 16:31:53
+ * @LastEditTime: 2022-07-10 18:43:56
 -->
 <template>
   <div id="index">
@@ -128,7 +128,7 @@
 
       // 定位成功的回调
       locationSuccess (data) {
-        console.log('locationSuccess...', data)
+        console.log('locationSuccess...')
         this.self_lng = data.position.lng;
         this.self_lat = data.position.lat;
         // 设置定位结果
@@ -139,7 +139,7 @@
 
       // 定位出错的回调
       locationError (error) {
-        console.log('locationError...', error)
+        console.log('locationError...')
       },
 
       // 自身定位
@@ -170,14 +170,14 @@
        * @description: 圆点击事件
        */
       handleClick () {
-        console.log("handleClick...")
+        // console.log("handleClick...")
       },
 
       /**
        * @description: 停车场数据
        */
       parkingData (data) {
-        console.log(1111111, data)
+        // console.log(1111111, data)
         this.parkingMarkers = data;
         this.parkingCarNumber = data;
       },
@@ -201,7 +201,7 @@
 
       // 步行导航成功的回调
       walkingSuccess (result) {
-        console.log("Walking Success", result)
+        console.log("Walking Success")
         this.parkingInfo = [{
           position: this.parkingBase.lnglat.split(","),
           offsetInfo: [-25, -57],
@@ -211,7 +211,7 @@
 
       // 步行导航失败的回调
       walkingError (result) {
-        console.log("Walking Error", result)
+        console.log("Walking Error")
       },
 
       /**
