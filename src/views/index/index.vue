@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-09 17:44:09
+ * @LastEditTime: 2022-07-10 16:19:06
 -->
 <template>
   <div>
@@ -104,10 +104,15 @@
         // console.log("o: ", o.target.getExtData())
         // 获取用户自定义属性
         let extData = o.target.getExtData(); //getExtData() ref方法 获取用户自定义属性
+        // 存储停车场数据
+        this.$refs.map.saveParkingData({
+          key: 'parkingData',
+          value: extData
+        });
         // 终点
-        // let lacation_end = extData.lnglat.split(",");
+        let lacation_end = extData.lnglat.split(",");
         // 调用子组件中的handleWalking方法
-        this.$refs.map.handleWalking(extData);
+        this.$refs.map.handleWalking(lacation_end);
       }
     },
     watch: {

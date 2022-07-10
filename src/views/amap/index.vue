@@ -3,7 +3,7 @@
  * @Author: wanghao
  * @Date: 2022-06-24 00:31:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-09 17:44:19
+ * @LastEditTime: 2022-07-10 16:31:53
 -->
 <template>
   <div id="index">
@@ -26,6 +26,8 @@
   import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
   import { selfLocation } from "./location";
   import { toWalking } from "./walking";
+  // 点标记样式
+  import style from "./parkingInfo";
   const aMapManager = new AMapManager();
   export default {
     name: "Amap",
@@ -92,9 +94,6 @@
 
         // 停车场信息
         parkingInfo: [],
-
-        // 当前选中的停车场位置
-        parkingLngLat: 0,
 
         // 停车场数据
         parkingBase: {},
@@ -166,12 +165,14 @@
           this.circles[0].strokeWeight = value;
         }, 50);
       },
+
       /**
        * @description: 圆点击事件
        */
       handleClick () {
         console.log("handleClick...")
       },
+
       /**
        * @description: 停车场数据
        */
@@ -180,18 +181,15 @@
         this.parkingMarkers = data;
         this.parkingCarNumber = data;
       },
+
       /**
        * @description: 步行导航
        */
-      handleWalking (data) {
-        console.log('data', data);
-        // 存储被点击的停车场数据
-        this.parkingBase = data;
-        this.parkingLngLat = data.lnglat.split(",");
+      handleWalking (lngLat) {
         const params = {
           map: this.map, // 地图实例
           location_start: [this.self_lng, this.self_lat], // 起点 即当前定位的圆点坐标
-          location_end: this.parkingLngLat, // 终点
+          location_end: lngLat, // 终点
           // 步行导航成功的回调
           walkingSuccess: (result) => this.walkingSuccess(result),
           // 步行导航失败的回调
@@ -200,18 +198,27 @@
         // 调用高德步行导航
         toWalking(params);
       },
+
       // 步行导航成功的回调
       walkingSuccess (result) {
         console.log("Walking Success", result)
         this.parkingInfo = [{
-          position: this.parkingLngLat,
+          position: this.parkingBase.lnglat.split(","),
           offsetInfo: [-25, -57],
-          info: `<div style="width:300px;height:51px;padding: 0 20px;font-size: 16px;color: #fff;background-color: #34393f;border-radius: 100px;line-height: 51px;"><strong>${this.parkingBase.carsNumber}</strong>，车辆距离您 ${result.routes[0].distance} 米</div>`,
+          info: `<div style="${style.parkingInfoWarp}"><span style="${style.parkingInfoNumber}">${this.parkingBase.carsNumber}</span>辆车<span style="${style.parkingInfoLine}"></span>车辆距离您 ${result.routes[0].distance} 米</div>`,
         }]
       },
+
       // 步行导航失败的回调
       walkingError (result) {
         console.log("Walking Error", result)
+      },
+
+      /**
+       * @description: 存储停车场数据
+       */
+      saveParkingData (res) {
+        if (res.key) this.parkingBase = res.value;
       },
     },
 
