@@ -3,28 +3,16 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 16:30:19
+ * @LastEditTime: 2022-07-10 22:50:03
 -->
 <template>
   <div class="cars-warp">
     <!-- 轮播区域 -->
     <div class="cars-swiper-warp">
       <swiper class="swiper" :options="swiperOption">
-        <swiper-slide>
+        <swiper-slide v-for="(item, index) in carsList" :key="index">
           <!-- 通过向子组件中传递高度，实现点击展开车辆信息功能 -->
-          <car-list height="600px" />
-        </swiper-slide>
-        <swiper-slide>
-          <car-list />
-        </swiper-slide>
-        <swiper-slide>
-          <car-list />
-        </swiper-slide>
-        <swiper-slide>
-          <car-list />
-        </swiper-slide>
-        <swiper-slide>
-          <car-list />
+          <CarList :data="item" />
         </swiper-slide>
       </swiper>
       <!-- 上一个 -->
@@ -36,24 +24,23 @@
 </template>
 
 <script>
+  import { GetCarsList } from "@/api/cars";
   // 引入插件 vue-awesome-swiper // "^3.1.3"版本 swiper3
   import { swiper, swiperSlide } from "vue-awesome-swiper";
   // swiper样式包
   import "swiper/dist/css/swiper.css";
   // 车辆列表(item)
-  import carList from "@/components/carlist"
+  import CarList from "@/components/carlist"
   export default {
     name: "Cars",
     components: {
       swiper,
       swiperSlide,
-      carList
+      CarList
     },
     data () {
       return {
-        /**
-         * @description: swiper配置项
-         */
+        // swiper配置项
         swiperOption: {
           /**
            * 设置滑块容器能够同时显示的item(banner)数量(carousel模式)。
@@ -65,11 +52,19 @@
             prevEl: '.swiper-button-prev', // 上一个按钮之DOM类名
             nextEl: '.swiper-button-next', // 下一个按钮之DOM类名
           }
-        }
+        },
+        carsList: [], //车辆列表
       }
     },
     methods: {
-
+      getCarsList (data) {
+        // console.log(data)
+        GetCarsList({ parkingId: data }).then(res => {
+          const data = res.data.data;
+          data && (this.carsList = data);
+          console.log(data)
+        })
+      }
     },
   }
 </script>

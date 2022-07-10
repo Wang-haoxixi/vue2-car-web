@@ -1,28 +1,28 @@
 <!--
- * @Description: 车辆信息card item
+ * @Description: 车辆信息card item (备注：此组件应该要放在cars目录下，因为这个并不是全局公用的，为方便开发先放这儿)
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-08 15:23:48
+ * @LastEditTime: 2022-07-10 23:27:50
 -->
 <template>
   <div>
     <section class="car-item">
       <header>
         <h1 class="car-logo">
-          <img src="@/assets/images/cars-logo.png" alt="福特">
-          <span class="name">Mustang 2019款</span>
+          <img :src="data.imgUrl">
+          <span class="name">{{ data.carsMode }}</span>
         </h1>
         <p class="car-attr">新能源汽车 5座</p>
       </header>
       <div class="car-content">
         <div class="info">
           <div>
-            <h4 class="car-number">粤 B745N8</h4>
+            <h4 class="car-number">{{ data.carsNumber }}</h4>
             <!-- 剩余电量(竖条状显示) -->
             <div>
               <!-- 8个li被激活 -->
-              <ul class="car-electricity active-li-8">
+              <ul class="car-electricity" :class="data.oil | activedLi">
                 <li></li>
                 <li></li>
                 <li></li>
@@ -42,10 +42,10 @@
             </div>
           </div>
         </div>
-        <img src="@/assets/images/pic001.jpg" alt="">
+        <img :src="data.carsImg" alt="">
       </div>
       <footer>
-        <a href="javascript:void();" class="park-link">某某停车场</a>
+        <a href="javascript:void();" class="park-link">{{ data.parkingName }}</a>
       </footer>
     </section>
     <!-- 展开悬浮层，绝对定位在item的上面 -->
@@ -120,10 +120,24 @@
   export default {
     name: "carList",
     props: {
+      // 车辆信息
+      data: {
+        type: Object,
+        default: () => {}
+      },
       // 悬浮层高度
       height: {
         type: String,
         default: "257px",
+      }
+    },
+    // 过滤器
+    filters: {
+      activedLi (val) {
+        // console.log(val)
+        // 当前量 / 10 = 需要显示的格数
+        const num = Math.round(val / 10);
+        return `active-li-${num}`;
       }
     }
   }

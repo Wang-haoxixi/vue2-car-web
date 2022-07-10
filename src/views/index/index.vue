@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-10 16:19:06
+ * @LastEditTime: 2022-07-10 22:35:32
 -->
 <template>
   <div>
@@ -11,7 +11,7 @@
     <Map ref="map" @loadMap="loadMap" />
 
     <!-- 汽车列表 -->
-    <!-- <Cars /> -->
+    <Cars ref="cars" />
 
     <!-- 导航 -->
     <Navbar />
@@ -91,7 +91,10 @@
             item.text = `<div style="width:50px;height: 55px;color:#fff;text-align:center;line-height: 52px">${item.carsNumber}</div>`;
             item.events = {
               // 点击事件 
-              click: (o) => this.walking(o)
+              click: (o) => {
+                this.walking(o); //步行导航规划
+                this.getCarsList(o); //获取车辆列表
+              }
             }
           })
           // console.log(data)
@@ -113,6 +116,14 @@
         let lacation_end = extData.lnglat.split(",");
         // 调用子组件中的handleWalking方法
         this.$refs.map.handleWalking(lacation_end);
+      },
+      // 获取车辆列表
+      getCarsList (o) {
+        // console.log('getCarsList');
+        // console.log(o.target.getExtData());
+        const parkingId = o.target.getExtData().id;
+        // 父组件调子组件方法
+        this.$refs.cars && this.$refs.cars.getCarsList(parkingId);
       }
     },
     watch: {
