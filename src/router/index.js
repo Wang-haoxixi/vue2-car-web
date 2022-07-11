@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-11 14:21:40
+ * @LastEditTime: 2022-07-11 16:07:05
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -301,6 +301,16 @@ const routes = [{
     path: "/avue-crud-search",
     name: "AvueCrudSearch", // CRUD - search搜索
     component: () => import("../views/avue/CRUD组件/search.vue")
+  },
+  {
+    path: "/avue-crud-import-and-export",
+    name: "AvueCrudImportAndExport", // CRUD - 表格导入导出
+    component: () => import("../views/avue/CRUD组件/import-and-export.vue")
+  },
+  {
+    path: "/avue-crud-big-table",
+    name: "AvueCrudBigTable", // CRUD - 大表哥 (最全avue表格配置!!!)
+    component: () => import("../views/avue/CRUD组件/big-table.vue")
   },
 ];
 const router = new VueRouter({
