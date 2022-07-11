@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-09 15:27:07
+ * @LastEditTime: 2022-07-11 09:39:14
  */
 import Vue from "vue";
 import App from "./App.vue";
@@ -19,7 +19,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 // 引入formCreate
 import formCreate from '@form-create/element-ui';
 
-// 引入xlsx-style
+// 引入xlsx-style 
+// TODO: 目前下载后引入会报错，待处理
 // import xlsxStyle from 'xlsx-style';
 // Vue.use(xlsxStyle);
 

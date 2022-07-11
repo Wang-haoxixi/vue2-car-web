@@ -3,7 +3,7 @@
  * @Author: wh
  * @Date: 2022-06-22 09:15:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-09 16:16:33
+ * @LastEditTime: 2022-07-11 14:21:40
  */
 import Vue from "vue";
 import VueRouter from "vue-router";
@@ -249,6 +249,58 @@ const routes = [{
     path: "/avue-inputTree",
     name: "AvueInputTree", // inputTree树型组件
     component: () => import("../views/avue/components/avue-inputTree.vue")
+  },
+  {
+    path: "/avue-inputNumber",
+    name: "AvueInputNumber", // inputNumber数字框
+    component: () => import("../views/avue/components/avue-inputNumber.vue")
+  },
+  {
+    path: "/avue-inputColor",
+    name: "AvueInputColor", // inputColor颜色选择器
+    component: () => import("../views/avue/components/avue-inputColor.vue")
+  },
+  {
+    path: "/avue-inputIcon",
+    name: "AvueInputIcon", // inputIcon图标选择器(远程)
+    component: () => import("../views/avue/components/avue-inputIcon.vue")
+  },
+  {
+    path: "/avue-inputMap",
+    name: "AvueInputMap", // inputMap地图选择器(返回经纬度和详细地址)
+    component: () => import("../views/avue/components/avue-inputMap.vue")
+  },
+  {
+    path: "/avue-inputTabel",
+    name: "AvueInputTabel", // inputTabel表格选择器
+    component: () => import("../views/avue/components/avue-inputTabel.vue")
+  },
+  {
+    path: "/avue-inputArray",
+    name: "AvueInputArray", // array 数组输入框
+    component: () => import("../views/avue/components/avue-inputArray.vue")
+  },
+  {
+    path: "/avue-date",
+    name: "AvueDate", // date 日期
+    component: () => import("../views/avue/components/avue-date.vue")
+  },
+
+  // CRUD组件
+  {
+    path: "/avue-crud-base",
+    name: "AvueCrudBase", // CRUD - base基础
+    component: () => import("../views/avue/CRUD组件/base.vue")
+  },
+  {
+    path: "/avue-crud-page",
+    name: "AvueCrudPage", // CRUD - page分页测试
+    component: () => import("../views/avue/CRUD组件/page.vue")
+  },
+  {
+    path: "/avue-crud-search",
+    name: "AvueCrudSearch", // CRUD - search搜索
+    component: () => import("../views/avue/CRUD组件/search.vue")
   },
 ];
 const router = new VueRouter({
